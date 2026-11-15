@@ -1,5 +1,7 @@
 # tauri-starter
 
+[![CI](https://github.com/ecoreal/tauri-starter/actions/workflows/ci.yml/badge.svg)](https://github.com/ecoreal/tauri-starter/actions/workflows/ci.yml)
+
 Tauri 2 桌面应用模板：React 19 + TypeScript 6 + Tailwind v4 + shadcn/ui + vitest，内置 CI（双平台测试）与三平台发布流水线。
 
 ## 技术栈
@@ -29,6 +31,18 @@ Tauri 2 桌面应用模板：React 19 + TypeScript 6 + Tailwind v4 + shadcn/ui +
 | `npm test` / `npm run test:watch` | vitest |
 | `npx tsc -b` | 类型检查 |
 | `cargo test --manifest-path src-tauri/Cargo.toml` | Rust 测试 |
+
+## 发布产物
+
+`v*` tag 触发发布流水线：tauri-action 在三平台（ubuntu / windows / macos）以 `bundle.targets: "all"` 出包，附件挂在 GitHub Release：
+
+| 平台 | 产物 |
+|---|---|
+| Linux | `.deb`、`.AppImage`、`.rpm` |
+| Windows | NSIS 安装器 `.exe`、`.msi` |
+| macOS | `.dmg`（内含 `.app`） |
+
+打 tag 前流水线会校验 tag 版本与 `src-tauri/tauri.conf.json` 的 `version` 一致；CI（push/PR）只做类型检查、测试与构建检查，不产生发布附件。
 
 ## Linux 构建依赖（Debian/Ubuntu）
 
